@@ -1,17 +1,17 @@
-import createMDX from '@next/mdx'
+import nextMDX from '@next/mdx'
+import remarkGfm from 'remark-gfm'
+import rehypePrism from '@mapbox/rehype-prism'
 
-/** @type {import('next').NextConfig} */
 const nextConfig = {
-  // allow MDX pages alongside JSX
-  pageExtensions: ['js', 'jsx', 'mdx'],
+  pageExtensions: ['js','jsx','ts','tsx','mdx'],
+  experimental: {
+    outputFileTracingIncludes: { '/projects/*': ['./src/app/projects/**/*.mdx'] },
+  },
 }
 
-const withMDX = createMDX({
+const withMDX = nextMDX({
   extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-  },
+  options: { remarkPlugins: [remarkGfm], rehypePlugins: [rehypePrism] },
 })
 
 export default withMDX(nextConfig)
