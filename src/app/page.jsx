@@ -1,4 +1,2 @@
 import AboutPage from "./about/page"
-export default function Home() {
-  return <AboutPage />
-}
+export default function Home() { return <AboutPage /> }

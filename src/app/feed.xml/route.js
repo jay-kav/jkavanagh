@@ -1,22 +1,20 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import { Feed } from "feed";
+// src/app/feed.xml/route.js
+import { Feed } from "feed"
+import fs from "fs"
+import path from "path"
+import matter from "gray-matter"
 
-export const runtime = "nodejs";
-export const revalidate = 3600; // 1h
-
-export async function GET(req) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? new URL(req.url).origin;
-
+export async function GET() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://your-domain.com"
   const author = {
     name: "Jamie Kavanagh",
-    email: "Jamiek03123@gmail.com",
-  };
+    email: "your@email.com",
+    link: siteUrl,
+  }
 
   const feed = new Feed({
-    title: author.name,
-    description: "Projects and updates",
+    title: "Jamie Kavanagh — Projects Feed",
+    description: "Updates and new projects from Jamie Kavanagh",
     id: siteUrl,
     link: siteUrl,
     language: "en",
@@ -25,54 +23,37 @@ export async function GET(req) {
     copyright: `All rights reserved ${new Date().getFullYear()}`,
     feedLinks: { rss2: `${siteUrl}/feed.xml` },
     author,
-  });
+  })
 
-  // gather items from MDX projects
-  const projectsDir = path.join(process.cwd(), "src/app/projects");
-  const entries = fs.readdirSync(projectsDir, { withFileTypes: true });
+  // Read all project MDX files
+  const projectsDir = path.join(process.cwd(), "src/app/projects")
+  const entries = fs.readdirSync(projectsDir, { withFileTypes: true })
 
-  const items = [];
+  for (const e of entries) {
+    if (!e.isDirectory()) continue
+    const slug = e.name
+    const mdxPath = path.join(projectsDir, slug, "page.mdx")
+    if (!fs.existsSync(mdxPath)) continue
 
-  for (const dirent of entries) {
-    if (!dirent.isDirectory()) continue;
-    const slug = dirent.name;
-    const mdxPath = path.join(projectsDir, slug, "page.mdx");
-    if (!fs.existsSync(mdxPath)) continue;
+    const src = fs.readFileSync(mdxPath, "utf8")
+    const { data, content } = matter(src)
 
-    const src = fs.readFileSync(mdxPath, "utf8");
-    const { data, content } = matter(src);
-
-    const url = `${siteUrl}/projects/${slug}`;
-    const title = data.title ?? slug.replace(/[-_]/g, " ");
-    const date = data.date ? new Date(data.date) : new Date(0);
-    const summary =
-      data.summary ||
-      (content.split("\n").find((l) => l.trim()) || "").slice(0, 240);
-    const tags = Array.isArray(data.tags) ? data.tags : [];
-
-    items.push({ url, title, date, summary, tags });
-  }
-
-  // newest first
-  items.sort((a, b) => b.date - a.date);
-
-  for (const item of items) {
     feed.addItem({
-      title: item.title,
-      id: item.url,
-      link: item.url,
-      description: item.summary,
-      date: item.date,
+      title: data.title || slug,
+      id: `${siteUrl}/projects/${slug}`,
+      link: `${siteUrl}/projects/${slug}`,
+      description: data.summary || "",
+      content,
       author: [author],
-      category: item.tags.map((t) => ({ name: t })),
-    });
+      date: new Date(data.date || Date.now()),
+    })
   }
 
   return new Response(feed.rss2(), {
     status: 200,
     headers: {
-      "content-type": "application/xml; charset=utf-8",
-      "cache-control": "s-maxage=3600, stale-while-revalidate=86400",
+      "Content-Type": "application/rss+xml; charset=utf-8",
+      "Cache-Control": "s-maxage=3600, stale-while-revalidate",
     },
-  });
+  })
 }

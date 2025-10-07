@@ -1,0 +1,46 @@
+import { ProjectLayout } from '@/components/ProjectLayout'
+
+export const project = {
+  slug: 'Jurno',
+  number: 3,
+  author: 'Jamie Kavanagh',
+  date: '2024',
+  name: 'Jurno',
+  title: '3rd Year Project',
+  description:
+    'A travel itinerary planner designed for explorers who want personalised recommendations and seamless trip organisation.',
+  repos: [
+    {
+      name: 'Frontend',
+      lang: 'React',
+      url: 'https://github.com/jay-kav/Trip-Planner/tree/main/code/frontend',
+    },
+    {
+      name: 'Backend',
+      lang: 'Django',
+      url: 'https://github.com/jay-kav/Trip-Planner/tree/main/code/backend',
+    },
+    {
+      name: 'User Manual',
+      lang: 'Markdown',
+      url: 'https://github.com/jay-kav/Trip-Planner/tree/main/user_manual',
+    },
+    {
+      name: 'Technical Specification',
+      lang: 'Markdown',
+      url: 'https://github.com/jay-kav/Trip-Planner/tree/main/technical_manual',
+    },
+  ],
+}
+
+export const metadata = {
+  title: project.name,
+  description: project.description,
+}
+
+export default (props) => <ProjectLayout project={project} {...props} />
+
+
+**Jurno** is a **travel itinerary planner** for people who love exploring and discovering new experiences.  
+The app builds **personalised trip plans** based on user preferences and live location data, helping travellers find the best things to do.  
+Developed with **Django** and **Python**, it focuses on intelligent itinerary generation, seamless organisation, and an enjoyable user experience.

@@ -1,0 +1,36 @@
+import { ProjectLayout } from '@/components/ProjectLayout'
+
+export const project = {
+  slug: 'My-Shell',
+  number: 1,
+  author: 'Jamie Kavanagh',
+  date: '2022',
+  name: 'My-Shell',
+  title: 'Custom C Shell',
+  description:
+    'A lightweight Unix shell written in C, built to handle essential process management, command parsing, and I/O redirection efficiently.',
+  repos: [
+    {
+      name: 'Project Repository',
+      lang: 'C',
+      url: 'https://github.com/jay-kav/My-Shell/tree/main/src',
+    },
+    {
+      name: 'Manual',
+      lang: 'Markdown',
+      url: 'https://github.com/jay-kav/My-Shell/tree/main/manual',
+    },
+  ],
+}
+
+export const metadata = {
+  title: project.name,
+  description: project.description,
+}
+
+export default (props) => <ProjectLayout project={project} {...props} />
+
+---
+
+**My-Shell** is a **custom Unix shell** built entirely in **C**.  
+It implements core shell functionalities like **command parsing**, **process creation**, **I/O redirection**, and **signal handling**, designed to replicate real-world shell behaviour with clean, modular code.

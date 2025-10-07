@@ -1,0 +1,35 @@
+import { ProjectLayout } from '@/components/ProjectLayout'
+
+export const project = {
+  slug: 'Go',
+  number: 2,
+  author: 'Jamie Kavanagh',
+  date: '2023',
+  name: 'Go',
+  title: 'Board Game Implementation',
+  description:
+    'A digital version of the classic board game Go, rebuilt from scratch using Django and React to deliver an interactive and modern gameplay experience.',
+  repos: [
+    {
+      name: 'Frontend',
+      lang: 'React',
+      url: 'https://github.com/jay-kav/Go-Game/tree/main/frontend',
+    },
+    {
+      name: 'Backend',
+      lang: 'Django',
+      url: 'https://github.com/jay-kav/Go-Game/tree/main/backend',
+    },
+  ],
+}
+
+export const metadata = {
+  title: project.name,
+  description: project.description,
+}
+
+export default (props) => <ProjectLayout project={project} {...props} />
+
+
+**Go** is a **web-based version of the classic strategy board game**, rebuilt to provide an engaging, responsive online experience.  
+Developed with **Django (backend)** and **React (frontend)**, the project focuses on real-time game logic, smooth user interaction, and an intuitive interface that stays true to the original gameplay.
