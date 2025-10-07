@@ -1,26 +1,28 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
+import fs from 'fs'
+import path from 'path'
 
 export async function getAllProjects() {
-  const dir = path.join(process.cwd(), "src/app/projects");
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  const projectsDir = path.join(process.cwd(), 'src/app/projects')
+  const entries = fs.readdirSync(projectsDir, { withFileTypes: true })
 
-  return entries
-    .filter(e => e.isDirectory())
-    .filter(e => fs.existsSync(path.join(dir, e.name, "page.mdx")))
-    .map(e => {
-      const slug = e.name;
-      const src = fs.readFileSync(path.join(dir, slug, "page.mdx"), "utf8");
-      const { data } = matter(src);
-      return {
-        slug,
-        name: data.title || slug.replace(/[-_]/g, " "),
-        date: data.date || "",
-        description: data.summary || "",
-        logo: data.logo || null,   // string path in /public
-        tags: data.tags || [],
-        number: data.number ?? 0,
-      };
-    });
+  const projects = []
+
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue
+
+    const filePath = path.join(projectsDir, entry.name, 'page.mdx')
+    if (!fs.existsSync(filePath)) continue
+
+    // Dynamic import the MDX file to get its `project` export
+    const { project } = await import(`@/app/projects/${entry.name}/page.mdx`)
+
+    projects.push({
+      ...project,
+      slug: entry.name,
+    })
+  }
+
+  // Sort newest first
+  projects.sort((a, b) => b.number - a.number)
+  return projects
 }

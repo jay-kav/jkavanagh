@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: "class",
-  theme: { extend: {} },
-  plugins: [require("@tailwindcss/typography")],
+  darkMode: 'class',
+  content: [
+    './src/**/*.{js,jsx,ts,tsx,mdx}',
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
 }
