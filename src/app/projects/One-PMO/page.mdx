@@ -1,0 +1,47 @@
+import { ProjectLayout } from '@/components/ProjectLayout'
+import logo from '@/images/logos/One-PMO-logo.png'
+
+export const project = {
+  slug: 'One-PMO',
+  number: 4,
+  author: 'Jamie Kavanagh',
+  date: '2025',
+  name: 'One-PMO',
+  title: 'Final Year Project',
+  logo,
+  description:
+    'A modern project management suite designed to enhance efficiency using intelligent scheduling and AI-powered workflow assistance.',
+  repos: [
+    {
+      name: 'Frontend',
+      lang: 'React',
+      url: 'https://github.com/yourname/onepmo-frontend',
+    },
+    {
+      name: 'Backend',
+      lang: 'Spring Boot',
+      url: 'https://github.com/yourname/onepmo-backend',
+    },
+    {
+      name: 'User Manual',
+      lang: 'Markdown',
+      url: 'https://github.com/yourname/onepmo-docs/blob/main/user_manual.md',
+    },
+    {
+      name: 'Technical Specification',
+      lang: 'Markdown',
+      url: 'https://github.com/yourname/onepmo-docs/blob/main/technical_spec.md',
+    },
+  ],
+}
+
+export const metadata = {
+  title: project.name,
+  description: project.description,
+}
+
+export default (props) => <ProjectLayout project={project} {...props} />
+
+
+**One-PMO** is a **project management suite** built to streamline team coordination and communication.  
+It enhances efficiency by using a **custom scheduling algorithm** to automatically arrange meetings, while integrated **AI tools** assist with **email generation**, **meeting summaries**, and **workflow automation**.
