@@ -5,10 +5,8 @@ import rehypePrism from '@mapbox/rehype-prism'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['js','jsx','ts','tsx','mdx'],
-  experimental: {
-    outputFileTracingIncludes: {
-      '/projects/*': ['./src/app/projects/**/*.mdx'],
-    },
+  outputFileTracingIncludes: {
+    '/projects/*': ['./src/app/projects/**/*.mdx'],
   },
 }
 
