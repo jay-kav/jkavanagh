@@ -1,0 +1,32 @@
+import { ProjectLayout } from '@/components/ProjectLayout'
+import logo from '@/images/logos/One-PMO-logo.png'
+
+export const project = {
+  slug: 'Blockchain',
+  number: 5,
+  author: 'Jamie Kavanagh',
+  date: '2025',
+  name: 'Blockchain',
+  title: 'Personal Project',
+  logo,
+  description:
+    'An implementation of how a blockchain works.',
+  repos: [
+    {
+      name: 'Blockchain',
+      lang: 'Python',
+      url: 'https://github.com/jay-kav/Blockchain',
+    },
+  ],
+}
+
+export const metadata = {
+  title: project.name,
+  description: project.description,
+}
+
+export default (props) => <ProjectLayout project={project} {...props} />
+
+
+This is a personal project I picked up so that I could learn how blockchain works. I've been intrested in Crypto but never understood how BitCoin worked and why it's considered safe.
+This project thought me about decentralised systems and how proof of work is incorporated to keep the nodes secure and establish a consensus.
