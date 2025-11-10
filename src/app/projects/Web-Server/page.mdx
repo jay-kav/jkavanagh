@@ -1,0 +1,30 @@
+import { ProjectLayout } from '@/components/ProjectLayout'
+
+export const project = {
+  slug: 'Web Server',
+  number: 6,
+  author: 'Jamie Kavanagh',
+  date: '2025',
+  name: 'Web Server',
+  title: 'WSGI HTTP Server',
+  description:
+    'An implementation of a WSGI HTTP Server.',
+  repos: [
+    {
+      name: 'Web Server',
+      lang: 'Python',
+      url: 'https://github.com/jay-kav/Web-Server',
+    },
+  ],
+}
+
+export const metadata = {
+  title: project.name,
+  description: project.description,
+}
+
+export default (props) => <ProjectLayout project={project} {...props} />
+
+
+A lightweight web server built from scratch in Python to handle HTTP requests and serve dynamic web applications. It follows the WSGI (Web Server Gateway Interface) standard, enabling communication between Python web apps and the server.
+The project demonstrates a understanding of network sockets, process management, and HTTP protocols, showcasing how web servers manage multiple client connections efficiently.
